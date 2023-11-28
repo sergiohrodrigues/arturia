@@ -18,6 +18,7 @@
 </template>
 
 <script lang="ts">
+import type Item from '@/interfaces/Item';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -42,8 +43,8 @@ export default defineComponent({
         removerItemCarrinho() {
             const lista = JSON.parse(sessionStorage.getItem('carrinho') as string)
 
-            const listaAtualizada = lista.filter((it) => it.codigo !== this.item.codigo)
-            sessionStorage.setItem('carrinho', listaAtualizada)
+            const listaAtualizada: Item[] = lista.filter((it: Item) => it.codigo !== this.item.codigo)
+            sessionStorage.setItem('carrinho', JSON.stringify(listaAtualizada))
 
             this.$emit('itemRemovido', this.item)
         }

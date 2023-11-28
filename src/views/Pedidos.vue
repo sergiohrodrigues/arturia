@@ -2,7 +2,7 @@
     <section style="width: 90%; margin: 0 auto;">
 
         <h1 style="margin: 1rem 0; font-size: 1.5rem;">Pedidos</h1>
-        <div class="box" v-if="pedidos.length > 0">
+        <div class="box" v-if="pedidos && pedidos.length > 0">
             <article class="media" v-for="ped in pedidos" :key="ped.id"
                 style="display: flex; align-items: center; justify-content: space-around;">
                 <p class="tamanho">
@@ -30,17 +30,18 @@
 </template>
 
 <script lang="ts">
+import type { IPedido } from '@/interfaces/IPedido';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
     name: 'ViewPedidos',
     data() {
         return {
-            pedidos: []
+            pedidos: [] as IPedido[] | null
         }
     },
     mounted() {
-        this.pedidos = JSON.parse(sessionStorage.getItem('pedidos'))
+        this.pedidos = JSON.parse(sessionStorage.getItem('pedidos') ?? '[]');
     }
 })
 </script>
